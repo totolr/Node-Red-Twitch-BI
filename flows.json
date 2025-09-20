@@ -1,1 +1,137 @@
-[]
+[
+    {
+        "id": "08fbeab03b4d2fad",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "28b7e14c3a153565",
+        "type": "tmi-config",
+        "name": "limpromptuuu Conf",
+        "username": "limpromptuuu",
+        "channels": " leburgerimpromptu",
+        "reconnect": true,
+        "secure": true,
+        "log_error": true
+    },
+    {
+        "id": "040fbed365c70c95",
+        "type": "tmi-event-chat",
+        "z": "08fbeab03b4d2fad",
+        "config": "28b7e14c3a153565",
+        "name": "",
+        "x": 170,
+        "y": 340,
+        "wires": [
+            [
+                "53ddfd7cf896cdc3"
+            ]
+        ]
+    },
+    {
+        "id": "53ddfd7cf896cdc3",
+        "type": "function",
+        "z": "08fbeab03b4d2fad",
+        "name": "Split CMD + Set Channel",
+        "func": "let newMsg = {\n    payload: {\n        cmd: msg.payload.reason.toLowerCase().split(\" \"),\n        username: msg.payload.username.username,\n        channel: \"leburgerimpromptu\"\n    }\n};\nreturn newMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "78d6d40c8390b58d"
+            ]
+        ]
+    },
+    {
+        "id": "78d6d40c8390b58d",
+        "type": "switch",
+        "z": "08fbeab03b4d2fad",
+        "name": "Switch cmd",
+        "property": "payload.cmd[0]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "!burger",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "a762487e8bf5fa79"
+            ]
+        ]
+    },
+    {
+        "id": "a762487e8bf5fa79",
+        "type": "function",
+        "z": "08fbeab03b4d2fad",
+        "name": "Burger",
+        "func": "let newMsg = {\n    payload: {\n        channel: msg.payload.channel,\n        message: \"Ici, c'est ultra simple ! 🥩 Steak bien juteux, 🥓 bacon croustillant, 🧂 sauce burger qui déchire… et pour le légume ? Uniquement du cornichon, bien sûr ! 🥒✨ C’est la loi ! 😤🔥\"\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 340,
+        "wires": [
+            [
+                "54a9b303430fb665"
+            ]
+        ]
+    },
+    {
+        "id": "218c6f2b1013ec6b",
+        "type": "tmi-command-say",
+        "z": "08fbeab03b4d2fad",
+        "config": "28b7e14c3a153565",
+        "name": "",
+        "x": 1230,
+        "y": 340,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "54a9b303430fb665",
+        "type": "delay",
+        "z": "08fbeab03b4d2fad",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 340,
+        "wires": [
+            [
+                "218c6f2b1013ec6b"
+            ]
+        ]
+    }
+]
